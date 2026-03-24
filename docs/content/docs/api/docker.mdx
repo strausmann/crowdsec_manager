@@ -5,39 +5,20 @@ description: Docker management endpoints
 
 # Docker API
 
-Endpoints for interacting with the Docker daemon.
+> **Warning:** This page is under revision. Some endpoints may be incorrect. The actual API uses grouped route prefixes (`/api/services`, `/api/update`, `/api/hosts`) rather than a flat `/api/docker` namespace. Refer to `internal/api/routes.go` for the authoritative endpoint list.
 
-## List Containers
+## Service Management
 
-`GET /api/docker/containers`
+- `GET /api/services/verify` — Verify running services against expected configuration.
+- `POST /api/services/shutdown` — Graceful shutdown of managed services.
+- `POST /api/services/action` — Perform an action (start, stop, restart) on a service.
 
-Returns a list of all containers in the stack.
+## Update Endpoints
 
-## Container Actions
+- `GET /api/update/check` — Check for available image updates.
+- `POST /api/update/with-crowdsec` — Apply updates including the CrowdSec container.
+- `POST /api/update/without-crowdsec` — Apply updates excluding the CrowdSec container.
 
-`POST /api/docker/container/:action`
+## Docker Hosts
 
-Performs an action on a specific container.
-
-**Parameters:**
-- `action`: `start`, `stop`, `restart`.
-
-### Body
-
-```json
-{
-  "container_name": "crowdsec"
-}
-```
-
-## Check Updates
-
-`GET /api/docker/updates`
-
-Checks for available updates for the stack images.
-
-## Apply Update
-
-`POST /api/docker/update`
-
-Applies updates to the specified services.
+- `GET /api/hosts/list` — List configured Docker hosts (multi-host mode).

@@ -30,4 +30,4 @@ The minimum deployment needs only a small environment set. Add more variables on
 
 - Keep environment values as in-container paths.
 - Use Docker volume mappings to map host paths to those container paths.
-- Multi-proxy support is not available in this release.
+- Multi-host support is available via the `DOCKER_HOSTS` environment variable (format: `id:endpoint,...`). Full documentation is pending.
